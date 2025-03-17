@@ -4,10 +4,10 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - pip install --upgrade pip
+    #  - pip install --upgrade pip
       - pip install -r requirements.txt pylint
-      - yum update -y
-      - yum install -y jq
+    #  - yum update -y
+    #  - yum install -y jq
     pre_build:
     commands:
       - echo "PRE-Build stage"

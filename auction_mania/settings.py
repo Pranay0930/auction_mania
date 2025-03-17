@@ -26,10 +26,7 @@ SECRET_KEY = "django-insecure-a8ja0my7ngcu1b+!+)_rz4k--ag#^+irctu8#likk185(yt-5w
 DEBUG = True
 
 ALLOWED_HOSTS = ['x23201827-devops-project-env.eba-qmjfmyfp.eu-west-2.elasticbeanstalk.com/','*']
-CSRF_TRUSTED_ORIGINS = [
-    'http://x23201827-devops-project-env.eba-qmjfmyfp.eu-west-2.elasticbeanstalk.com/'
-]
-
+CSRF_TRUSTED_ORIGINS = ['http://x23201827-devops-project-env.eba-qmjfmyfp.eu-west-2.elasticbeanstalk.com/']         
 
 
 # Application definition
@@ -126,7 +123,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-AUTH_USER_MODEL = 'auction_app.UserModel'
+
+AUTH_USER_MODEL = 'auction_app.UserModel' 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

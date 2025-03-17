@@ -126,8 +126,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-AUTH_USER_MODEL = 'auction_app.UserModel' 
+AUTH_USER_MODEL = 'auction_app.UserModel'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

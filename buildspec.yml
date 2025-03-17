@@ -4,24 +4,32 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-    #  - pip install --upgrade pip
+      - pip install --upgrade pip
       - pip install -r requirements.txt pylint
-    #  - yum update -y
-    #  - yum install -y jq
-    pre_build:
+      - yum update -y
+      - yum install -y jq
+  pre_build:
     commands:
       - echo "PRE-Build stage"
-
-  build:
-    commands:
-      #- echo "BUILD STARTED"
-      #- python manage.py collectstatic --noinput
       - python --version
       - python manage.py collectstatic --noinput
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+      - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
+      - export PATH=$PATH:./sonar-scanner-3.3.0.1492-linux/bin/
+      - echo "pre build stage completed"      
       - echo "PyLint Started"
       - pylint auction_mania/**/*.py || true
       - echo "pre build stage completed - PyLint Completed!!"      
-      - echo "BUILD COMPLETE"
+
+  build:
+    commands:
+      - echo "Sonar Cloud Started"
+      - sonar-scanner -Dsonar.login=Pranay0930-UnQGz@github -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=Pranay0930_auction_mania -Dsonar.organization=pranay0930 || true
+      - sleep 5
+      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=Pranay0930_auction_mania >result.json
+      - cat result.json
+      - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
+      - echo "Build stage completed"
 artifacts:
   files:
     - '**/*'

@@ -26,8 +26,8 @@ phases:
       - echo "PRE-Build stage"
       - python --version
       - python manage.py collectstatic --noinput
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux
-      - unzip ./sonar-scanner-cli-6.0.0.4432-linux
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.0.0.4432-linux.zip
+      - unzip ./sonar-scanner-cli-6.0.0.4432-linux.zip
       - export PATH=$PATH:./sonar-scanner-6.0.0.4432-linux/bin/
       - echo "pre build stage completed"      
       - echo "PyLint Started"

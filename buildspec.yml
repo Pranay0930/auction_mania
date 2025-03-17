@@ -10,15 +10,17 @@ phases:
       - yum install -y jq
     pre_build:
     commands:
-      - python --version
-      - python manage.py collectstatic --noinput
-      - echo "PyLint Started"
-      - pylint auction_mania/**/*.py || true
-      - echo "pre build stage completed - PyLint Completed!!"
+      - echo "PRE-Build stage"
+
   build:
     commands:
       #- echo "BUILD STARTED"
       #- python manage.py collectstatic --noinput
+      - python --version
+      - python manage.py collectstatic --noinput
+      - echo "PyLint Started"
+      - pylint auction_mania/**/*.py || true
+      - echo "pre build stage completed - PyLint Completed!!"      
       - echo "BUILD COMPLETE"
 artifacts:
   files:

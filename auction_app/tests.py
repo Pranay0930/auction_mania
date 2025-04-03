@@ -16,24 +16,3 @@ class LoginTestCase(TestCase):
             'password': self.password
         })
         self.assertRedirects(response, reverse('user_auctions_list'))
-
-    """  
-
-    def test_login_invalid_credentials(self):   
-        response = self.client.post(reverse('login'), {
-            'username': "wronguser",
-            'password': "wrongpassword"
-        })
-        self.assertEqual(response.status_code, 200)  
-        self.assertContains(response, "Invalid username or password")
-
-    def test_login_blank_fields(self):
-        response = self.client.post(reverse('login'), {
-            'username': "",
-            'password': ""
-        })
-        self.assertEqual(response.status_code, 200)  
-
-    def test_login_get_request(self):
-        response = self.client.get(reverse('login'))
-        self.assertEqual(response.status_code, 200)  """

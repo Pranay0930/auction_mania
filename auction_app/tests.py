@@ -10,12 +10,14 @@ class LoginTestCase(TestCase):
         self.email = "testemail@gmail.com"
         self.user = UserModel.objects.create_user(username=self.username,email=self.email, password=self.password)
 
-    """ def test_login_successful(self):
-        response = self.client.post(reverse('login'), {
+    def test_login_successful(self):
+        response = self.client.post(reverse('login_page'), {
             'username': self.username,
             'password': self.password
         })
-        self.assertRedirects(response, reverse('home'))  
+        self.assertRedirects(response, reverse('user_auctions_list'))
+
+    """  
 
     def test_login_invalid_credentials(self):   
         response = self.client.post(reverse('login'), {

@@ -5,7 +5,7 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - echo "<-- RUNTIME EXECUTION -->"
+      - echo "Runtimes installations"
       - pip install --upgrade pip
       - pip install -r requirements.txt pylint
 
@@ -16,16 +16,15 @@ phases:
       - python manage.py collectstatic --noinput
       - echo "pre build stage completed"
 
-
   build:
     commands:
       - echo "Build Stage"
-	  - echo "PyLint Started"
+      - echo "PyLint Started"
       - pylint auction_mania/**/*.py || true
       - echo "pre build stage completed - PyLint Completed!!"
-	  - echo "Django Test Cases Started"
-	  - python manage.py test
-	  - echo "Django Test Cases Completed!!"
+      - echo "Django Test Cases Started"
+      - python manage.py test
+      - echo "Django Test Cases Completed!!"
       - echo "Build stage completed!"
 
 artifacts:

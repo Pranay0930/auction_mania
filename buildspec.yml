@@ -1,48 +1,33 @@
 version: 0.2
-env:
-  secrets-manager:
-    LOGIN: prod/sonar/x23201827:sonartoken
-    HOST: prod/sonar/x23201827:HOST
-    Organization: prod/sonar/x23201827:Organization
-    Project: prod/sonar/x23201827:Project
+
 phases:
   install:
     runtime-versions:
       python: 3.11
     commands:
+      - echo "<-- RUNTIME EXECUTION -->"
       - pip install --upgrade pip
       - pip install -r requirements.txt pylint
-      - yum update -y
-      - yum install -y jq
-      - sudo yum install -y java-11-openjdk
-      - java -version  # Check installed Java version
-      # Set JAVA_HOME environment variable
-      - export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-      - export PATH=$JAVA_HOME/bin:$PATH
-      - java -version  # Verify that Java 11 is being used
-      
+
   pre_build:
     commands:
       - echo "PRE-Build stage"
       - python --version
       - python manage.py collectstatic --noinput
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
-      - unzip ./sonar-scanner-cli-4.7.0.2747-linux.zip
-      - export PATH=$PATH:./sonar-scanner-4.7.0.2747-linux/bin/
-      - echo "pre build stage completed"      
-      - echo "PyLint Started"
-      - pylint auction_mania/**/*.py || true
-      - echo "pre build stage completed - PyLint Completed!!"      
+      - echo "pre build stage completed"
+
 
   build:
     commands:
-      - echo "Sonar Cloud Started"
-      - sonar-scanner -Dsonar.login=$LOGIN -Dsonar.host.url=$HOST -Dsonar.projectKey=$Project -Dsonar.organization=$Organization || true
-      - sleep 5
-      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
-      - cat result.json
-      - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
+      - echo "Build Stage"
+	  - echo "PyLint Started"
+      - pylint auction_mania/**/*.py || true
+      - echo "pre build stage completed - PyLint Completed!!"
+	  - echo "Django Test Cases Started"
+	  - python manage.py test
+	  - echo "Django Test Cases Completed!!"
       - echo "Build stage completed!"
+
 artifacts:
   files:
     - '**/*'

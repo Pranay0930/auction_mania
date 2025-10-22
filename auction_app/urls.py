@@ -26,7 +26,7 @@ urlpatterns = [
     path('auctions_list/',views.adminAuctionsListView.as_view(), name="admin_auctions_list"),
     path('users_list/',views.adminUsersListView.as_view(), name="admin_users_list"),
     path('add_item/',views.adminAddItemView.as_view(), name="admin_add_item"),
-    path('add_item/<int:item_id>/', views.adminAddItemView.as_view(), name='admin_add_item_with_id'),
+    path('add_item/<int:item_id>/', views.adminAddItemView.as_view(), name='admin_add_item_w0ith_id'),
     path('admin_all_bids/',views.adminAllBids.as_view(), name="admin_all_bids"),
     path('item_details/<int:item_id>/',views.adminItemDetailView.as_view(), name="item_details"),
 
